@@ -56,6 +56,9 @@ Ator: Bibliotecário
 4. O sistema valida as informações e adiciona o novo livro ao catálogo.
 5. O bibliotecário recebe uma confirmação da adição do livro.
 
+#Diagrama de Classe 01
+
+```mermaid
 classDiagram
     class Biblioteca {
         - List~Livro~ livros
@@ -118,7 +121,69 @@ classDiagram
     Livro --> Emprestimo : é emprestado em
     Bibliotecario --> Livro : gerencia
     Bibliotecario --> Usuario : gerencia
+```
+# Diagrama de Classe 02
+```mermaid 
+  classDiagram
+    class Usuario {
+        - String cpf
+        - String nome
+        - String email
+        - String senha
+        - List~Emprestimo~ historicoEmprestimos
+        - double multas
+        + registrar()
+        + fazerLogin()
+        + visualizarHistorico()
+        + renovarEmprestimo()
+        + cancelarEmprestimo()
+    }
 
+    class Bibliotecario {
+        + adicionarLivro()
+        + removerLivro()
+        + atualizarLivro()
+        + gerenciarContaUsuario()
+    }
+    Usuario <|-- Bibliotecario
+
+    class Livro {
+        - String titulo
+        - String autor
+        - String genero
+        - String ISBN
+        - String sinopse
+        - boolean disponibilidade
+        + visualizarDetalhes()
+    }
+
+    class Emprestimo {
+        - Date dataEmprestimo
+        - Date dataDevolucao
+        - Livro livro
+        - Usuario usuario
+        + registrarEmprestimo()
+        + cancelarEmprestimo()
+        + renovarEmprestimo()
+    }
+
+    class Biblioteca {
+        - List~Livro~ catalogo
+        - List~Usuario~ usuarios
+        - List~Bibliotecario~ bibliotecarios
+        + buscarLivro()
+        + visualizarCatalogo()
+    }
+
+    Usuario --> Emprestimo : realiza
+    Bibliotecario --> Livro : gerencia
+    Emprestimo --> Livro : está associado a
+    Emprestimo --> Usuario : está associado a
+    Biblioteca --> Livro : contém
+    Biblioteca --> Usuario : contém
+    Biblioteca --> Bibliotecario : contém
+
+```
 
 
    
