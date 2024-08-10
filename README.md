@@ -56,6 +56,69 @@ Ator: Bibliotecário
 4. O sistema valida as informações e adiciona o novo livro ao catálogo.
 5. O bibliotecário recebe uma confirmação da adição do livro.
 
+classDiagram
+    class Biblioteca {
+        - List~Livro~ livros
+        - List~Usuario~ usuarios
+        - List~Emprestimo~ emprestimos
+        + adicionarLivro(Livro)
+        + removerLivro(Livro)
+        + cadastrarUsuario(Usuario)
+        + realizarEmprestimo(Usuario, Livro)
+        + renovarEmprestimo(Emprestimo)
+    }
+
+    class Livro {
+        - String ISBN
+        - String titulo
+        - String autor
+        - String sinopse
+        - int numeroPaginas
+        - boolean disponivel
+        + getDetalhes()
+        + setDisponivel(boolean)
+    }
+
+    class Usuario {
+        - String cpf
+        - String nome
+        - String email
+        - String senha
+        - List~Emprestimo~ historicoEmprestimos
+        + realizarLogin(email, senha)
+        + visualizarHistorico()
+        + solicitarEmprestimo(Livro)
+        + renovarEmprestimo(Emprestimo)
+    }
+
+    class Bibliotecario {
+        - String id
+        - String nome
+        - String email
+        - String senha
+        + adicionarLivro(Livro)
+        + removerLivro(Livro)
+        + atualizarLivro(Livro)
+        + gerenciarUsuario(Usuario)
+    }
+
+    class Emprestimo {
+        - Date dataEmprestimo
+        - Date dataDevolucao
+        - Livro livro
+        - Usuario usuario
+        + calcularMulta()
+        + renovarEmprestimo()
+    }
+
+    Biblioteca --> Livro : contém
+    Biblioteca --> Usuario : contém
+    Biblioteca --> Emprestimo : contém
+    Usuario --> Emprestimo : realiza
+    Livro --> Emprestimo : é emprestado em
+    Bibliotecario --> Livro : gerencia
+    Bibliotecario --> Usuario : gerencia
 
 
 
+   
