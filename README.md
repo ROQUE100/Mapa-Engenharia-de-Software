@@ -61,14 +61,11 @@ Ator: Bibliotecário
 ```mermaid
 classDiagram
     class Biblioteca {
-        - List~Livro~ livros
+        - List~Livro~ catalogo
         - List~Usuario~ usuarios
-        - List~Emprestimo~ emprestimos
-        + adicionarLivro(Livro)
-        + removerLivro(Livro)
-        + cadastrarUsuario(Usuario)
-        + realizarEmprestimo(Usuario, Livro)
-        + renovarEmprestimo(Emprestimo)
+        - List~Bibliotecario~ bibliotecarios
+        + buscarLivro()
+        + visualizarCatalogo()
     }
 
     class Livro {
@@ -88,21 +85,26 @@ classDiagram
         - String email
         - String senha
         - List~Emprestimo~ historicoEmprestimos
-        + realizarLogin(email, senha)
+        - boolean emailConfirmado
+        + registrar(cpf, nome, email, senha)
+        + confirmarEmail(token)       
+        + realizarLogin(email, senha) 
         + visualizarHistorico()
         + solicitarEmprestimo(Livro)
         + renovarEmprestimo(Emprestimo)
+        + cancelarEmprestimo()   
+               
     }
 
     class Bibliotecario {
-        - String id
+        - String cpf
         - String nome
         - String email
         - String senha
         + adicionarLivro(Livro)
         + removerLivro(Livro)
         + atualizarLivro(Livro)
-        + gerenciarUsuario(Usuario)
+        + gerenciarUsuario(Usuario)        
     }
 
     class Emprestimo {
@@ -110,17 +112,19 @@ classDiagram
         - Date dataDevolucao
         - Livro livro
         - Usuario usuario
+        - boolean renovado
         + calcularMulta()
         + renovarEmprestimo()
     }
 
     Biblioteca --> Livro : contém
     Biblioteca --> Usuario : contém
-    Biblioteca --> Emprestimo : contém
+    Biblioteca --> Bibliotecario : contém
     Usuario --> Emprestimo : realiza
-    Livro --> Emprestimo : é emprestado em
+    Emprestimo --> Usuario : está associado a
+    Emprestimo --> Livro : está associado a
     Bibliotecario --> Livro : gerencia
-    Bibliotecario --> Usuario : gerencia
+    Bibliotecario --> Usuario : gerencia   
 ```
 # Diagrama de Classe 02
 ```mermaid 
