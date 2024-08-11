@@ -56,7 +56,7 @@ Ator: Bibliotecário
 4. O sistema valida as informações e adiciona o novo livro ao catálogo.
 5. O bibliotecário recebe uma confirmação da adição do livro.
 
-#Diagrama de Classe 01
+# Diagrama de Classe 01
 
 ```mermaid
 classDiagram
