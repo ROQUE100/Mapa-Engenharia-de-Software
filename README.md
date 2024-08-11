@@ -76,6 +76,7 @@ classDiagram
         - int numeroPaginas
         - boolean disponivel
         + getDetalhes()
+        + getId()
         + setDisponivel(boolean)
     }
 
@@ -87,7 +88,8 @@ classDiagram
         - List~Emprestimo~ historicoEmprestimos
         - boolean emailConfirmado
         + registrar(cpf, nome, email, senha)
-        + confirmarEmail(token)       
+        + confirmarEmail(token)
+        + getId()       
         + realizarLogin(email, senha) 
         + visualizarHistorico()
         + solicitarEmprestimo(Livro)
@@ -101,6 +103,7 @@ classDiagram
         - String nome
         - String email
         - String senha
+        + getId()
         + adicionarLivro(Livro)
         + removerLivro(Livro)
         + atualizarLivro(Livro)
@@ -113,18 +116,20 @@ classDiagram
         - Livro livro
         - Usuario usuario
         - boolean renovado
+        + getId()
         + calcularMulta()
         + renovarEmprestimo()
     }
 
-    Biblioteca --> Livro : contém
-    Biblioteca --> Usuario : contém
-    Biblioteca --> Bibliotecario : contém
-    Usuario --> Emprestimo : realiza
-    Emprestimo --> Usuario : está associado a
-    Emprestimo --> Livro : está associado a
-    Bibliotecario --> Livro : gerencia
-    Bibliotecario --> Usuario : gerencia   
+    Biblioteca "1" o--*"N" Livro : contém
+    Biblioteca "1" o--o"N" Usuario : contém
+    Biblioteca "1"o--o"N" Bibliotecario : contém
+    Usuario "1"*--"1" Emprestimo : realiza
+    Emprestimo "1"--*"1" Usuario : está associado a
+    Emprestimo "1"--*"1" Livro : está associado a
+    Bibliotecario "1"-->"N" Livro : gerencia
+    Bibliotecario "1"-->"N" Usuario : gerencia   
+
 ```
 # Diagrama de Classe 02
 ```mermaid 
@@ -141,6 +146,7 @@ classDiagram
         + visualizarHistorico()
         + renovarEmprestimo()
         + cancelarEmprestimo()
+        + GetId()
     }
 
     class Bibliotecario {
@@ -148,6 +154,7 @@ classDiagram
         + removerLivro()
         + atualizarLivro()
         + gerenciarContaUsuario()
+        + GetId()
     }
     Usuario <|-- Bibliotecario
 
@@ -159,6 +166,7 @@ classDiagram
         - String sinopse
         - boolean disponibilidade
         + visualizarDetalhes()
+        + GetId()
     }
 
     class Emprestimo {
@@ -169,6 +177,7 @@ classDiagram
         + registrarEmprestimo()
         + cancelarEmprestimo()
         + renovarEmprestimo()
+        + GetId()
     }
 
     class Biblioteca {
@@ -186,6 +195,8 @@ classDiagram
     Biblioteca --> Livro : contém
     Biblioteca --> Usuario : contém
     Biblioteca --> Bibliotecario : contém
+
+
 
 ```
 
