@@ -122,13 +122,13 @@ classDiagram
     }
 
     Biblioteca "1" o--*"N" Livro : contém
-    Biblioteca "1" o--o"N" Usuario : contém
+    Biblioteca "N" o--o"0" Usuario : contém
     Biblioteca "1"o--o"N" Bibliotecario : contém
-    Usuario "1"*--"1" Emprestimo : realiza
-    Emprestimo "1"--*"1" Usuario : está associado a
+    Usuario "1"*--"0" Emprestimo : realiza
+    Emprestimo "1"--*"0" Usuario : está associado a
     Emprestimo "1"--*"1" Livro : está associado a
     Bibliotecario "1"-->"N" Livro : gerencia
-    Bibliotecario "1"-->"N" Usuario : gerencia   
+    Bibliotecario "N"-->"0" Usuario : gerencia   
 
 ```
 # Diagrama de Classe 02
