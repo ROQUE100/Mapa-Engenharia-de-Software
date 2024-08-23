@@ -133,68 +133,70 @@ classDiagram
 ```
 # Diagrama de Classe 02
 ```mermaid 
-  classDiagram
-    class Usuario {
-        - String cpf
-        - String nome
-        - String email
-        - String senha
-        - List~Emprestimo~ historicoEmprestimos
-        - double multas
-        + registrar()
-        + fazerLogin()
-        + visualizarHistorico()
-        + renovarEmprestimo()
-        + cancelarEmprestimo()
-        + GetId()
+  
+   classDiagram
+    class Biblioteca {
+        -livro: List~Livro~
+        -usuario: List~Usuario~
+        -bibliotecario: List~Bibliotecario~
+        +visualizarCatalogo(): List~Livro~
     }
 
     class Bibliotecario {
-        + adicionarLivro()
-        + removerLivro()
-        + atualizarLivro()
-        + gerenciarContaUsuario()
-        + GetId()
+        -administrador: boolean
+        +adicionarLivro(livro: Livro): void
+        +removerLivro(livro: Livro): void
+        +atualizarLivro(livro: Livro): void
+        +gerenciarUsuario(usuario: Usuario): void
     }
-    Usuario <|-- Bibliotecario
 
     class Livro {
-        - String titulo
-        - String autor
-        - String genero
-        - String ISBN
-        - String sinopse
-        - boolean disponibilidade
-        + visualizarDetalhes()
-        + GetId()
+        -isbn: char
+        -titulo: char
+        -autor: char
+        -sinopse: char
+        -n_Pag: int
+        +livro(isbn: char, titulo: char, autor: char, sinopse: char, n_Pag: int)
+        +getDetalheLivro(): void
+        +setLivro(): int
+        +disponivel(): boolean
+    }
+
+    class Usuario {
+        #nome: char
+        #cpf: int
+        #email: char
+        #senha: char
+        +usuario(cpf: int, nome: char, email: char, senha: char)
+        +confirmarEmail(): boolean
+        +getUsuario(): void
+        +setUsuario(): int
+        +realizarLogin(email: char, senha: char): char
+        +solicitarEmprestimo(livro: Livro): void
+        +renovarEmprestimo(): boolean
+        +cancelarEmprestimo(): boolean
     }
 
     class Emprestimo {
-        - Date dataEmprestimo
-        - Date dataDevolucao
-        - Livro livro
-        - Usuario usuario
-        + registrarEmprestimo()
-        + cancelarEmprestimo()
-        + renovarEmprestimo()
-        + GetId()
+        -livro_Id: int
+        -user_Id: int
+        -dataEmprestimo: int
+        -dataDevolucao: int
+        +getEmprestimo(): void
+        +setEmprestimo(): void
+        +renovarEmprestimo(): boolean
+        +cancelarEmprestimo(): boolean
     }
 
-    class Biblioteca {
-        - List~Livro~ catalogo
-        - List~Usuario~ usuarios
-        - List~Bibliotecario~ bibliotecarios
-        + buscarLivro()
-        + visualizarCatalogo()
-    }
+    Biblioteca "1" -- "1..*" Livro : possui
+    Biblioteca "1" -- "1..*" Usuario : possui
+    Biblioteca "1" -- "1..*" Bibliotecario : possui
+    Bibliotecario <|-- Usuario : extends
+    Usuario "1" -- "0..1" Emprestimo : possui
+    Livro "1" -- "1" Emprestimo : possui
+    Bibliotecario "1" -- "1..*" Livro : gerencia
+    Bibliotecario "1" -- "1..*" Usuario : gerencia
 
-    Usuario --> Emprestimo : realiza
-    Bibliotecario --> Livro : gerencia
-    Emprestimo --> Livro : está associado a
-    Emprestimo --> Usuario : está associado a
-    Biblioteca --> Livro : contém
-    Biblioteca --> Usuario : contém
-    Biblioteca --> Bibliotecario : contém
 
 
 
